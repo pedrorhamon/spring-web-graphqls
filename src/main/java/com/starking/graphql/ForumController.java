@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -34,5 +35,10 @@ public class ForumController {
 	@MutationMapping
 	public Collection<Comment> createComment(@Argument String content, @Argument String postId) {
 		return this.commentService.createComment(content, postId);
+	}
+	
+	@SchemaMapping
+	public Collection<Comment> comments(Post post) {
+		return this.commentService.findByPost(post.id());
 	}
 }
